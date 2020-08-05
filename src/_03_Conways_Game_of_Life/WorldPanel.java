@@ -20,8 +20,8 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	
 	//1. Create a 2D array of Cells. Do not initialize it.
 
-	
-	
+	Cell[][] cells;
+			
 	public WorldPanel(int w, int h, int cpr) {
 		setPreferredSize(new Dimension(w, h));
 		addMouseListener(this);
