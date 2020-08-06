@@ -39,7 +39,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
 				
-				cells[i][j]=;
+				cells[i][j]=new Cell(j*cellSize, i*cellSize, cellSize);
 				
 			}
 		}
@@ -49,12 +49,26 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		//4. Iterate through each cell and randomly set each
 		//   cell's isAlive memeber to true of false
 		
-		repaint();
+		Random ran=new Random();
+		
+		
+		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells[i].length; j++) {
+				
+					cells[i][j].isAlive	=ran.nextBoolean();
+				
+				
+			}
+		}
 	}
 	
 	public void clearCells() {
 		//5. Iterate through the cells and set them all to dead.
-		
+		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells[i].length; j++) {
+				cells[i][j].isAlive=false;
+			}
+		}
 		repaint();
 	}
 	
@@ -74,7 +88,11 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	public void paintComponent(Graphics g) {
 		//6. Iterate through the cells and draw them all
 		
-		
+		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells[i].length; j++) {
+				cells[i][j].draw(g);
+			}
+		}
 		
 		// draws grid
 		g.setColor(Color.BLACK);
@@ -86,9 +104,18 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		//7. iterate through cells and fill in the livingNeighbors array
 		// . using the getLivingNeighbors method.
 		int[][] livingNeighbors = new int[cellsPerRow][cellsPerRow];
-		
+		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells[i].length; j++) {
+				livingNeighbors[i][j]=getLivingNeighbors(i, j);
+			}
+		}
 		//8. check if each cell should live or die
 	
+		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells[i].length; j++) {
+				cells[i][j].liveOrDie(livingNeighbors[i][j]);
+			}
+		}
 		
 		
 		
@@ -99,7 +126,44 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	//   It returns an int of 8 or less based on how many
 	//   living neighbors there are of the 
 	//   cell identified by x and y
-	public int getLivingNeighbors(int x, int y){
+	public int getLivingNeighbors(int i, int j){
+		int maxj=cells[i].length-1;
+		int maxi=cells.length-1;
+		int neighbors;
+		//check above
+		if(i>0) {
+		cells[i][j]
+				i-1
+		if(j>0) {
+			i=j-1
+				i-1
+			if(j<maxj) {
+			i=j+1;
+			i-1;
+			}
+		}
+		}
+		//check same
+		if(j>0) {
+			
+			j-1;
+			if(j<maxj) {
+				j+1
+			}
+		}
+		
+		// check below
+		if(i<maxi) {
+			i+1
+			if(j>0) {
+				i=j-1
+				i+1
+				if(j<maxj) {
+					i=j+1
+							i+1
+				}
+			}
+		}
 		return 0;
 	}
 
