@@ -129,42 +129,58 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	public int getLivingNeighbors(int i, int j){
 		int maxj=cells[i].length-1;
 		int maxi=cells.length-1;
-		int neighbors;
+		int neighbors=0;
 		//check above
 		if(i>0) {
-		cells[i][j]
-				i-1
-		if(j>0) {
-			i=j-1
-				i-1
-			if(j<maxj) {
-			i=j+1;
-			i-1;
+			if(cells[i-1][j].isAlive==true) {
+				neighbors+=1;
+			}
+				
+			if(i<maxi) {
+				if(cells[i+1][j].isAlive==true) {
+					neighbors+=1;
 			}
 		}
 		}
 		//check same
 		if(j>0) {
 			
-			j-1;
-			if(j<maxj) {
-				j+1
+			if(cells[i][j-1].isAlive==true) {
+				neighbors+=1;
 			}
+			if(i>0) {
+				if(cells[i-1][j-1].isAlive==true) {
+					neighbors+=1;
+				}
+			}
+			if(i<maxi) {
+				if(cells[i+1][j-1].isAlive==true) {
+					neighbors+=1;
+				}
+			}
+			
 		}
 		
 		// check below
-		if(i<maxi) {
-			i+1
-			if(j>0) {
-				i=j-1
-				i+1
-				if(j<maxj) {
-					i=j+1
-							i+1
+		if(j<maxj) {
+			
+			if(cells[i][j+1].isAlive==true) {
+				neighbors+=1;
+				System.out.println(neighbors);
+			}
+			if(i>0) {
+				if(cells[i-1][j+1].isAlive==true) {
+					neighbors+=1;
 				}
 			}
+				if(i<maxi) {
+					if(cells[i+1][j+1].isAlive==true) {
+						neighbors+=1;
+					}
+				}
 		}
-		return 0;
+		
+		return neighbors;
 	}
 
 	@Override
@@ -190,8 +206,23 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		//    which cell is clicked. Then toggle
 		//    the isAlive variable for that cell.
 		
+		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells[i].length; j++) {
+				
+			
 		
-		
+		if(cells[i][j].getX()<e.getX()&&e.getX()<cells[i][j].getX()+cellSize) {
+			if(cells[i][j].getY()<e.getY()&&e.getY()<cells[i][j].getY()+cellSize) {
+				if(cells[i][j].isAlive==true) {
+					cells[i][j].isAlive=false;
+				}
+				else if(cells[i][j].isAlive==false) {
+					cells[i][j].isAlive=true;
+				}
+			}
+		}
+			}
+		}
 		
 		repaint();
 	}
