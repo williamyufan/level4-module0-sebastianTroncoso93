@@ -1,6 +1,7 @@
 package _03_Conways_Game_of_Life;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Robot;
 
 public class Cell implements Drawable{
 	public boolean isAlive = false;
@@ -41,6 +42,7 @@ public class Cell implements Drawable{
 			isAlive=true;
 		}
 	}
+	
 	
 	public int getX() {
 		return x;
