@@ -10,7 +10,7 @@ public class Cell implements Drawable{
 	private int y;
 
 	private int cellSize;
-	
+	int livingneighbors=0;
 	
 	public Cell(int x, int y, int size) {
 		this.x = x;
@@ -29,10 +29,13 @@ public class Cell implements Drawable{
 	 * (source: Wikipedia)
 	 * */
 	public void liveOrDie(int numNeighbors) {
+		
+		livingneighbors=numNeighbors;
+		
 		if(numNeighbors<2) {
 			isAlive=false;
 		}
-		else if(numNeighbors==2 || numNeighbors==3) {
+		else if(isAlive==true&&numNeighbors==2 || numNeighbors==3) {
 			isAlive=true;
 		}
 		else if(numNeighbors>3) {
